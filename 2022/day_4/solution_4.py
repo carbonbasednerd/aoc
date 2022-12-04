@@ -20,18 +20,14 @@ if __name__ == "__main__":
     full_overlapping_count = 0
     partial_overlapping_count = 0
     for entry in result:
-        if all(e in range(entry[0], entry[1]+1) for e in range(entry[2], entry[3]+1)): # not ranges are not inclusive at max
+        if all(e in range(entry[0], entry[1]+1) for e in range(entry[2], entry[3]+1)): # note ranges are not inclusive at max
             full_overlapping_count += 1
         elif all(e in range(entry[2], entry[3]+1) for e in range(entry[0], entry[1]+1)):
             full_overlapping_count += 1
 
-        if entry[0] in range(entry[2], entry[3]+1):
+        if entry[0] in range(entry[2], entry[3]+1) or entry[1] in range(entry[2], entry[3]+1):
             partial_overlapping_count += 1
-        elif entry[1] in range(entry[2], entry[3]+1):
-            partial_overlapping_count += 1
-        elif entry[2] in range(entry[0], entry[1]+1):
-            partial_overlapping_count += 1
-        elif entry[3] in range(entry[0], entry[1]+1):
+        elif entry[2] in range(entry[0], entry[1]+1) or entry[3] in range(entry[0], entry[1]+1):
             partial_overlapping_count += 1
 
     print(f"full overlapping = {full_overlapping_count} partial overlapping = {partial_overlapping_count}")
