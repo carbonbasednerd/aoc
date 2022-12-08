@@ -1,0 +1,26 @@
+$ cd /
+$ ls
+dir a
+15 teet
+$ cd a
+$ ls
+dir b
+$ cd b
+$ ls
+dir c
+$ cd c
+$ ls
+dir d
+$ cd d
+$ ls
+10 test.l
+$ cd ..
+$ cd ..
+$ ls
+dir e
+$ cd e
+$ ls
+12 t.t
+$ cd /
+$ ls
+10 test
