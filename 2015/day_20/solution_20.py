@@ -1,69 +1,39 @@
-# puzzle_input = 34000000
-puzzle_input = 10
-
-def get_score(num):
-    score = 0
-    for i in range(1, num + 1):
-        if (num % i) == 0:
-            score += i * 10
-    else:
-        return score
-
-def get_factors(num):
-    factors = []
-    for i in range(1, num + 1):
-        if (num % i) == 0:
-            factors.append(i)
-    return factors
+puzzle_input = 34000000
 
 
-def solver(val_min, val_max, end):
-    x = int((val_min + val_max)/2)
+def solve(target, val, house_limit):
+    answer = target
+    offset = 2
+    not_done = True
+    buckets = [val for i in range(0, target)]
+    while not_done:
+        if offset > target / 10:
+            not_done = False
+            break
+        count = 0
+        for i in range(offset-1, target, offset):
+            if house_limit:
+                count += 1
+                if count > 50:
+                    break
 
-    if x % 2 == 0:
-        x += 1
-    not_a_prime = True
-    num_score = get_score(x)
-    while not_a_prime:
-        if num_score != -1:
-            not_a_prime = False
-        else:
-            print("prime")
-            x += 1
-            num_score = get_score(x)
+            buckets[i] += (offset * val)
+            if buckets[i] >= puzzle_input:
+                answer = min(i+1, answer)
+                break
+        offset += 1
+    return answer
 
-    # print(s)
-    print(f"min {val_min}, max {val_max}, mid {x}")
-    if num_score == end:
-        return x
-    elif val_max - val_min == 1:
-        return -1
-    elif num_score > end:
-        print("too high")
-        return solver(val_min, x, end)
-    else:
-        print("too low")
-        return solver(x, val_max, end)
 
 if __name__ == "__main__":
-    solving = True
-    answer = 0
-    min_dex = 0
+    print(f"answer part 1 = {solve(puzzle_input, 10, False)}")
+    print(f"answer part 2 = {solve(puzzle_input, 11, True)}")
 
-    for x in range(1, 21):
-        s = get_score(x)
-        print(f"{x} {s} {get_factors(x)}")
-        # if 34000000 % s == 0:
-        #     print("mean anything?")
-        #     break
-        # else:
-        #     print(x)
-    # while solving:
-    #     answer = solver(min_dex, puzzle_input, puzzle_input)
-    #     if answer != -1:
-    #         solving = False
-    #     else:
-    #         min_dex += 1000
-    #         print(f"resetting with min dex {min_dex}")
-    # print(f"House {answer} is the first to equal the input")
-
+# 31953469 - still too high
+# 2259441 - not the right answer - no clue given
+# 2259440 - also not the right answer
+# 17450495 not it
+# 17450497 - nope
+# 17450496 - no what the hell am i doing wrong?
+# 786240 - answer! It was because I was looking for == and not >=
+#solved part 2 with no help.
