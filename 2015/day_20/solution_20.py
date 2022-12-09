@@ -3,16 +3,18 @@ puzzle_input = 10
 
 def get_score(num):
     score = 0
-    count = 0
     for i in range(1, num + 1):
         if (num % i) == 0:
             score += i * 10
-            count += 1
-
-    if count == 2:   # it's a prime, ignore it
-        return -1
     else:
         return score
+
+def get_factors(num):
+    factors = []
+    for i in range(1, num + 1):
+        if (num % i) == 0:
+            factors.append(i)
+    return factors
 
 
 def solver(val_min, val_max, end):
@@ -48,12 +50,20 @@ if __name__ == "__main__":
     answer = 0
     min_dex = 0
 
-    while solving:
-        answer = solver(min_dex, puzzle_input, puzzle_input)
-        if answer != -1:
-            solving = False
-        else:
-            min_dex += 1000
-            print(f"resetting with min dex {min_dex}")
-    print(f"House {answer} is the first to equal the input")
+    for x in range(1, 21):
+        s = get_score(x)
+        print(f"{x} {s} {get_factors(x)}")
+        # if 34000000 % s == 0:
+        #     print("mean anything?")
+        #     break
+        # else:
+        #     print(x)
+    # while solving:
+    #     answer = solver(min_dex, puzzle_input, puzzle_input)
+    #     if answer != -1:
+    #         solving = False
+    #     else:
+    #         min_dex += 1000
+    #         print(f"resetting with min dex {min_dex}")
+    # print(f"House {answer} is the first to equal the input")
 
