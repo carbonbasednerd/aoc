@@ -85,7 +85,7 @@ if __name__ == "__main__":
             pressurized_valves.append(valve)
 
     # for right now this solution is different for part 1 vs part 2
-    # I hard coded the combination splits against the test data
+    # I hard coded the combination splits against the test data_1
     # could definitely multithread each run
     print("Part 2a")
     max_cost = []
