@@ -47,4 +47,3 @@ if __name__ == "__main__":
             valid_triangle_count += 1
 
     print(f"number of valid triangles (part 2):{valid_triangle_count}")
-    
