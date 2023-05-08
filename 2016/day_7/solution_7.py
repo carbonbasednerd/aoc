@@ -34,16 +34,8 @@ def load_data(file, solution):
                             aba.append(f"{stripped[i - 1]}{stripped[i]}{stripped[i + 1]}")
 
                     if len(aba) > 0 and len(bab) > 0:
-                        exit = False
-                        for a in aba:
-                            for b in bab:
-                                if a[0] == b[1] and a[1] == b[0]:
-                                    supports_ssl += 1
-                                    exit = True
-                                    break
-                            if exit:
-                                break
-                        if exit:
+                        if detect_ssl(aba, bab):
+                            supports_ssl += 1
                             break
 
         if does_supports_tls:
@@ -53,12 +45,17 @@ def load_data(file, solution):
     return [supports_tls, supports_ssl]
 
 
+def detect_ssl(ab, ba):
+    for a in ab:
+        for b in ba:
+            if a[0] == b[1] and a[1] == b[0]:
+                return True
+    return False
+
+
 if __name__ == "__main__":
     result = load_data("data_7", 1)
     print(f"Number of TLS supported ip addresses:{result[0]}")
 
     result = load_data("data_7", 2)
-    print(f"Number of TLS supported ip addresses:{result[1]}")
-
-
-# part 2 161 is too low
+    print(f"Number of SSL supported ip addresses:{result[1]}")
