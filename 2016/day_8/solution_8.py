@@ -57,7 +57,6 @@ class Screen:
             self.grid[row][x] = row_buffer[x]
 
 
-
 if __name__ == "__main__":
     instructions = load_data("data_8")
     print(instructions)
