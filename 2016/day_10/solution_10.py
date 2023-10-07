@@ -1,36 +1,27 @@
+from collections import defaultdict
+
+
 def load_data(file):
-    bots = {}
-    outputs = {}
+    bots = defaultdict(Bot)
+    outputs = defaultdict(lambda: [])
     data = open(file, 'r')
     for line in data:
         scrubbed = line.strip().split(" ")
         if scrubbed[0] == "bot":
             bid = int(scrubbed[1])
             low_pass = [scrubbed[5], int(scrubbed[6])]
-            if low_pass[0] == "output":
-                outputs[low_pass[1]] = []
             high_pass = [scrubbed[10], int(scrubbed[11])]
-            if high_pass[0] == "output":
-                outputs[high_pass[1]] = []
-
-            if bid not in bots.keys():
-                bots[bid] = Bot()
-
             bots[bid].set_low_and_high_pass(low_pass, high_pass)
         else:
             bid = int(scrubbed[5])
             chip_value = int(scrubbed[1])
-
-            if bid not in bots.keys():
-                bots[bid] = Bot()
-
             bots[bid].chip_container.append(chip_value)
 
     data.close()
     return bots, outputs
 
 
-class Bot(object):
+class Bot:
     def __init__(self, low_pass=-1, high_pass=-1):
         self.low_pass = low_pass
         self.high_pass = high_pass
@@ -54,7 +45,6 @@ class Bot(object):
 
 if __name__ == "__main__":
     bot_list, output_bins = load_data("data_10")
-    print(f"bots {bot_list.items()}")
     process_list = set(bot_list.keys())
     # this makes an assumption that every bot distributes a chip once - which works for this case.
     while len(process_list):
