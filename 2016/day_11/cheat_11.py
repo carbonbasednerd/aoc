@@ -4,6 +4,8 @@ from itertools import combinations
 from collections import Counter
 from collections import deque
 
+# https://eddmann.com/posts/advent-of-code-2016-day-11-radioisotope-thermoelectric-generators/
+
 
 def load_data(file):
     data = open(file, 'r')   # cool. this very compactly grabs everything and sticks it in a set.
