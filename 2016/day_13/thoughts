@@ -1,0 +1,4 @@
+it's shortest path so, breadth first search
+there is a formula to determine where walls are. Do that on the fly?
+simplify using distance as a test for valid paths?
+Or just keep track of tested nodes?
